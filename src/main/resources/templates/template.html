@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
-    <title>Gestion des patients</title>
+    <title>Gestion des abonnements</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="/webjars/bootstrap-icons/1.10.3/font/bootstrap-icons.css">
     <script src="/webjars/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
@@ -13,15 +13,15 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <div class="container-fluid">
         <ul class="navbar-nav">
-            <li class="nav-item"><a class="navbar-brand" href="#">&nbsp;<b>&nbsp;&nbsp;&nbsp;G</b>estion<br>des <b>P</b>atients</a></li>
+            <li class="nav-item"><a class="navbar-brand" href="#">&nbsp;<b>&nbsp;&nbsp;G</b>estion<br>des <b>A</b>bonnements</a></li>
             <li class="nav-item">
-                <a class="nav-link active" th:href="@{/user/index}">Home</a>
+                <a class="nav-link active" th:href="@{/index}">Home</a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Patients</a>
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Clients</a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item"  th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:href="@{/admin/formPatients}" ><b>N</b>ouveau</a></li>
-                    <li><a class="dropdown-item" th:href="@{/user/index}"><b>C</b>hercher</a></li>
+                    <li><a class="dropdown-item"  th:href="@{/formClients}" ><b>N</b>ouveau</a></li>
+                    <li><a class="dropdown-item" th:href="@{/index}"><b>C</b>hercher</a></li>
                 </ul>
             </li>
         </ul>

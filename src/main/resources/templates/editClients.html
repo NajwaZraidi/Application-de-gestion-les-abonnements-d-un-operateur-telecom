@@ -1,43 +1,42 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="template"
->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultrap.net.nz/thymeleaf/layout"
+      layout:decorate="template">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>edit Client</title>
+  <Link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
 </head>
 <body>
+
 <div layout:fragment="content">
-  <div class="col-md-6 offset-3">
-    <form method="post" th:action="@{save(page=${page},Recherche=${Recherche})}">
-      <div>
-        <label for="id">Patient N° :</label>
-        <input id="id" type="text" class="form-control"  name="id" th:value="${patient.id}" disabled>
-        <span  class="text-danger" th:errors="${patient.id}"></span>
+  <div class="col-md-4 offset-4 mt-5 card-body rounded border border-secondary" style="padding: 10px 50px 20px;outline-style: groove;">
+    <form method="post" th:action="@{/save(page=${page}, Recherche=${Recherche})}">
+      <div  class="mt-4">
+        <label>Client N° : </label>
+        <label th:text="${client.id}"> </label>
+        <input class="form-control" type="hidden" name="id" th:value="${client.id}" disabled>
       </div>
-      <div>
-        <label for="nom">Nom :</label>
-        <input id="nom" type="text" class="form-control"  name="nom" th:value="${patient.nom}">
-        <span  class="text-danger" th:errors="${patient.nom}"></span>
+
+      <div  class="mt-4">
+        <label>Nom : </label>
+        <input class="form-control" type="text" name="nom" th:value="${client.nom}">
+        <span class="text-danger" th:errors="${client.nom}"></span>
       </div>
-      <div>
-        <label>Date Naissance :</label>
-        <input type="date" class="form-control"  name="dateNaissance" th:value="${patient.dateNaissance}">
-        <span class="text-danger" th:errors="${patient.dateNaissance}"></span>
+      <div  class="mt-4">
+        <label>userName : </label>
+        <input class="form-control" type="text" name="username" th:value="${client.username}">
+        <span class="text-danger" th:errors="${client.username}"></span>
       </div>
-      <div>
-        <label>Malade :</label>
-        <input type="checkbox" class="form-control form-check-input"  name="malade" th:checked="${patient.malade}">
-        <span class="text-danger" th:errors="${patient.malade}"></span>
+      <div  class="mt-4">
+        <label>Email : </label>
+        <input class="form-control" type="text" name="email" th:value="${client.email}">
+        <span class="text-danger" th:errors="${client.email}"></span>
       </div>
-      <div>
-        <label>Score :</label>
-        <input type="text" class="form-control"  name="score" th:value="${patient.score}">
-        <span class="text-danger" th:errors="${patient.score}"></span>
+      <div class="offset-5 mt-4">
+        <button type="submit" class="btn btn-secondary">Enregistrer</button>
       </div>
-      <button type="submit" class="btn btn-outline-primary" >Enregistrer</button>
     </form>
   </div>
 </div>

@@ -1,18 +1,14 @@
-package ma.enset.repositories;
+package ma.enset.contole.repositories;
 
-import ma.enset.entities.Patient;
+import ma.enset.contole.entities.Client;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface PatientRespository extends JpaRepository<Patient,Long> {
- Page<Patient> findByNomContains(String Recherche, Pageable pageable);
+import org.springframework.stereotype.Repository;
 
 
-
-
-
-
+public interface ClientRespository extends JpaRepository<Client,Long> {
+ Page<Client> findByNomContains(String Recherche, Pageable pageable);
 
 
 }

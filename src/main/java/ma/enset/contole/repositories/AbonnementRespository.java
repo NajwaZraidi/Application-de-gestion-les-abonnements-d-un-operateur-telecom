@@ -1,18 +1,15 @@
-package ma.enset.repositories;
+package ma.enset.contole.repositories;
 
-import ma.enset.entities.Patient;
+import ma.enset.contole.entities.Abonnnement;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface PatientRespository extends JpaRepository<Patient,Long> {
- Page<Patient> findByNomContains(String Recherche, Pageable pageable);
+import org.springframework.stereotype.Repository;
 
 
-
-
-
-
+public interface AbonnementRespository extends JpaRepository<Abonnnement,Long> {
+ Page<Abonnnement> findByTypeAbonnement(String Recherche, Pageable pageable);
+ Page<Abonnnement> findByClient_Id(Long Id,String Recherche, Pageable pageable);
 
 
 }

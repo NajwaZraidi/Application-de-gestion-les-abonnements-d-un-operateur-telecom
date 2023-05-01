@@ -1,9 +1,9 @@
-package ma.enset.web;
+package ma.enset.contole.services;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import ma.enset.entities.Patient;
-import ma.enset.repositories.PatientRespository;
+import ma.enset.contole.entities.Client;
+import ma.enset.contole.repositories.ClientRespository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,14 +21,14 @@ import java.util.List;
 @Controller
 //Injection des dependances via Constructor
 @AllArgsConstructor
-public class PatientController {
-    private PatientRespository patientRespository;
+public class ClientController {
+    private ClientRespository clientRespository;
 
 //acces à la methode patient
-    @GetMapping(path="/user/index")
+    @GetMapping(path="/index")
     // la methode patient return un vue
     //Module de spring MVC
-    public String patient(Model model,
+    public String client(Model model,
                           //pagination
                            @RequestParam(name="page",defaultValue = "0") int page,
                           //size de page
@@ -36,55 +36,55 @@ public class PatientController {
                           @RequestParam(name="Recherche",defaultValue = "") String Recherche
 
     ){
-        Page<Patient> pagePatients=patientRespository.findByNomContains(Recherche,PageRequest.of(page, size));
+        Page<Client> pageClient=clientRespository.findByNomContains(Recherche,PageRequest.of(page, size));
         // stocker dans le modul
-        model.addAttribute("listPatients",pagePatients.getContent());
-        model.addAttribute("pages",new int[pagePatients.getTotalPages()]);
+        model.addAttribute("listClients",pageClient.getContent());
+        model.addAttribute("pages",new int[pageClient.getTotalPages()]);
         model.addAttribute("currentPage",page);
         model.addAttribute("Recherche",Recherche);
-        return "patients";
+        return "clients";
    }
-@GetMapping("/admin/delete")
+@GetMapping("/delete")
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 public  String delete(long id,String Recherche,int page ){
-        patientRespository.deleteById(id);
-        return "redirect:/user/index?page="+page+"&Recherche="+Recherche;
+        clientRespository.deleteById(id);
+        return "redirect:/index?page="+page+"&Recherche="+Recherche;
 }
 @GetMapping("/")
     public  String home(){
-        return "redirect:/user/index";
+        return "redirect:/index";
     }
 
-    @GetMapping("/user/patients")
+    @GetMapping("/clients")
     @ResponseBody
-    public List<Patient> patientList(){
-        return  patientRespository.findAll();
+    public List<Client> patientList(){
+        return  clientRespository.findAll();
     }
 
-    @GetMapping("/admin/formPatients")
+    @GetMapping("/formClients")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-public String formPatient(Model model){
-        model.addAttribute("patient",new Patient());
-        return "formPatients";
+public String formClient(Model model){
+        model.addAttribute("client",new Client());
+        return "formClients";
     }
-    @PostMapping(path="/admin/save")
+    @PostMapping(path="/save")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public  String save(Model model, @Valid Patient patient, BindingResult bindingResult,
+    public  String save(Model model, @Valid Client client, BindingResult bindingResult,
                         @RequestParam(defaultValue = "0") int page,
                         @RequestParam(defaultValue = "")String Recherche){
-        if(bindingResult.hasErrors()) return "formPatients";
-        patientRespository.save(patient);
-        return "redirect:/user/index?page="+page+"&Recherche="+Recherche;
+        if(bindingResult.hasErrors()) return "formClients";
+        clientRespository.save(client);
+        return "redirect:/index?page="+page+"&Recherche="+Recherche;
     }
-    @GetMapping("/admin/editPatients")
+    @GetMapping("/editClients")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String editPatients(Model model,Long id,String Recherche,int page){
-        Patient patient=patientRespository.findById(id).orElse(null);
-        if(patient==null) throw new RuntimeException("Patient introuvable");
-        model.addAttribute("patient",patient);
+    public String editClients(Model model,Long id,String Recherche,int page){
+        Client client=clientRespository.findById(id).orElse(null);
+        if(client==null) throw new RuntimeException("client introuvable");
+        model.addAttribute("client",client);
         model.addAttribute("page",page);
         model.addAttribute("Recherche",Recherche);
 
-        return "editPatients";
+        return "editClients";
     }
 }

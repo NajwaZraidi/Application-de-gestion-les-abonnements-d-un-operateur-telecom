@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultrap.net.nz/thymeleaf/layout"
+      layout:decorate="template">
+
+<head>
+  <meta charset="UTF-8">
+  <title>edit Client</title>
+  <Link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
+</head>
+<body>
+
+<div layout:fragment="content">
+  <div class="col-md-4 offset-4 mt-5 card-body rounded border border-secondary" style="padding: 10px 50px 20px;outline-style: groove;">
+    <form method="post" th:action="@{/Abonnement/save(page=${page}, Recherche=${Recherche})}">
+
+      <div  class="mt-4">
+        <label>Abonnement N° : </label>
+        <label th:text="${abonnnement.id}"> </label>
+        <input class="form-control" type="hidden" name="id" th:value="${abonnnement.id}" >
+      </div>
+      <div class="mt-4">
+        <label>Date de l'abonnement :</label>
+        <input type="date" class="form-control"  name="dateAbonnement" th:value="${abonnnement.dateAbonnement}" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+        <span class="text-danger" th:errors="${abonnnement.dateAbonnement}"></span>
+      </div>
+      <div  class="mt-4">
+        <label for="typeAbonnement">type de l'abonnement : </label>
+         <select  class="form-select form-select-sm mb-3 " id="typeAbonnement" th:field="*{abonnnement.typeAbonnement}" name="typeAbonnement">
+          <option  value="GSM">GSM</option>
+          <option value="INTERNET">INTERNET</option>
+          <option value="TELEPHONE_FIXE">TELEPHONE_FIXE</option>
+        </select>
+        <span class="text-danger" th:errors="${abonnnement.typeAbonnement}"></span>
+      </div>
+      <div  class="mt-4">
+        <label>Solde : </label>
+        <input class="form-control" type="text" name="solde" th:value="${abonnnement.solde}">
+        <span class="text-danger" th:errors="${abonnnement.solde}"></span>
+      </div>
+      <div  class="mt-4">
+        <label>Montant : </label>
+        <input class="form-control" type="text" name="montant" th:value="${abonnnement.montant}" >
+        <span class="text-danger" th:errors="${abonnnement.montant}"></span>
+      </div>
+      <input class="form-control" type="hidden" name="client_id" th:value="${abonnnement.getClient().id}">
+      <div class="offset-5 mt-4">
+        <button type="submit" class="btn btn-outline-secondary">Enregistrer</button>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>
